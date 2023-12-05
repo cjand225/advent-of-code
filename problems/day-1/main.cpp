@@ -10,16 +10,11 @@ int main()
 
     char first, last = '\0';
     int result = 0;
-    int sum = 0;
 
     // read file
     char c;
-    while (inputFile.good())
+    while (inputFile.get(c))
     {
-
-        // read line
-        inputFile.get(c);
-
         // Skip characters that aren't digits or new lines
         if (!isdigit(c) && c != '\n')
         {
@@ -29,13 +24,8 @@ int main()
         // if its a new line, calculate first/last and convert to a real number, reset the "numbers"
         if (c == '\n')
         {
-            // concat the result
-            sum = (first - '0') * 10 + (last - '0');
 
-            if (sum > 0)
-            {
-                result += (first - '0') * 10 + (last - '0');
-            }
+            result += (first - '0') * 10 + (last - '0');
 
             // reset numbers
             first = '\0';
