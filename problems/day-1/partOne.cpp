@@ -1,10 +1,9 @@
 #include <fstream>
 #include <iostream>
-#include <map>
-#include <string>
 
 int main()
 {
+
     // open file
     std::fstream inputFile("input.txt", std::fstream::in);
 
