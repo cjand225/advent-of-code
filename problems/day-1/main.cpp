@@ -1,22 +1,29 @@
 #include <fstream>
 #include <iostream>
+#include <map>
+#include <string>
 
 int main()
 {
-
     // open file
     std::fstream inputFile("input.txt", std::fstream::in);
 
     char first, last = '\0';
+    char s[60];
     int result = 0;
+    int sum = 0;
 
     // read file
     char c;
     while (inputFile.good())
     {
 
-        // read character
+        // read line
         inputFile.get(c);
+        // inputFile.getline(s, 60);
+
+        // convert all words of numbers into numbers
+        // std::cout << s << std::endl;
 
         // Skip characters that aren't digits or new lines
         if (!isdigit(c) && c != '\n')
@@ -28,7 +35,12 @@ int main()
         if (c == '\n')
         {
             // concat the result
-            result += (first - '0') * 10 + (last - '0');
+            sum = (first - '0') * 10 + (last - '0');
+
+            if (sum > 0)
+            {
+                result += (first - '0') * 10 + (last - '0');
+            }
 
             // reset numbers
             first = '\0';
@@ -49,6 +61,8 @@ int main()
             }
         }
     }
+
+    inputFile.close();
 
     std::cout << result << std::endl;
 }
