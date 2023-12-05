@@ -9,7 +9,6 @@ int main()
     std::fstream inputFile("input.txt", std::fstream::in);
 
     char first, last = '\0';
-    char s[60];
     int result = 0;
     int sum = 0;
 
@@ -20,10 +19,6 @@ int main()
 
         // read line
         inputFile.get(c);
-        // inputFile.getline(s, 60);
-
-        // convert all words of numbers into numbers
-        // std::cout << s << std::endl;
 
         // Skip characters that aren't digits or new lines
         if (!isdigit(c) && c != '\n')
