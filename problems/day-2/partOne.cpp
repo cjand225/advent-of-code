@@ -1,6 +1,7 @@
 #include <fstream>
-#include <map>
 #include <iostream>
+#include <string>
+#include <sstream>
 
 int main()
 {
@@ -9,80 +10,110 @@ int main()
     std::fstream inputFile("input.txt", std::fstream::in);
     std::string inputLine = "";
 
-    // Setup vars for getting counts for each game.
-    int totalSumofPossibleGames = 0;
-    int gameID = 0;
-    int red = 0;
-    int blue = 0;
-    int green = 0;
-    int quantity = 0;
+    // Setup vars for each game.
+    int totalSumofPossibleGames, gameID, quantity, red, green, blue = 0;
+    std::string color;
+    bool addGame = false;
 
-    char *cstr;
     char *token;
+    char *tries;
 
     // read file & parse it out
     while (std::getline(inputFile, inputLine))
     {
         // convert to a c-string to use strtok
-        cstr = inputLine.data();
+        token = inputLine.data();
 
         // Split by colon
-        token = strtok(cstr, ": ");
-        token = strtok(nullptr, ": ");
-        gameID = atoi(token);
+        token = strtok(token, " :");
+        gameID = atoi(strtok(nullptr, " :"));
 
-        // Grab right side of string
-        token = strtok(nullptr, ":");
+        std::cout << gameID << std::endl;
 
-        // Split based on qty/color
-        token = strtok(token, " ");
+        // Copy contents
+        tries = new char[strlen(token) + 1];
+        strcpy(tries, token);
 
-        while (token != nullptr)
+        // Split based on pulls out of the bag
+        tries = strtok(nullptr, ";");
+
+        while (tries != nullptr)
         {
-            // if not, check if its red/blue/green, add the quantity to the red, blue, green vars
-            if (strcmp("red", token) == 0)
+            std::cout << tries << std::endl;
+
+            // Convert to string stream
+            std::string cubeSet(tries);
+            std::istringstream cubeSetStream(cubeSet);
+
+            // using a different approach here because of strtok implementation has an iternal pointer that keeps moving.
+            // Tried copying to a different pointer, but doesn't seem to work as expected.
+            while (cubeSetStream >> quantity >> color)
             {
-                red += quantity;
+                // Remove any commas as a result from this.
+                if (color.back() == ',')
+                {
+                    color.pop_back();
+                }
+
+                std::cout << quantity << color << std::endl;
+
+                if (color == "red")
+                {
+                    red += quantity;
+                }
+                else if (color == "blue")
+                {
+                    blue += quantity;
+                }
+                else if (color == "green")
+                {
+                    green += quantity;
+                }
             }
-            else if (strcmp("blue", token) == 0)
+
+            // Output to validate
+            std::cout << "gameID: " << gameID << std::endl;
+            std::cout << "red: " << red << std::endl;
+            std::cout << "blue: " << blue << std::endl;
+            std::cout << "green: " << green << std::endl;
+            std::cout << std::endl;
+
+            // // Check if it exceeds anything, if it does, skip the game
+            if (red <= 12 && green <= 13 && blue <= 14)
             {
-                blue += quantity;
+                addGame = true;
             }
-            else if (strcmp("green", token) == 0)
-            {
-                green += quantity;
-            }
-            else
-            {
-                quantity = atoi(token);
-            }
+
+            // Reset colors
+            red = 0;
+            blue = 0;
+            green = 0;
+            quantity = 0;
 
             // Grab next token
-            token = strtok(nullptr, " ,;");
+            tries = strtok(nullptr, ";");
         }
 
-        // Output to validate
-        std::cout << "gameID: " << gameID << std::endl;
-        std::cout << "red: " << red << std::endl;
-        std::cout << "blue: " << blue << std::endl;
-        std::cout << "green: " << green << std::endl;
-        std::cout << std::endl;
-
-        // doesn't exceed 12 red cubes, 13 green cubes, and 14 blue cubes in the current game ID.
-        if (red <= 12 && green <= 13 && blue <= 14)
+        if (addGame)
         {
-            std::cout << "gameID Added: " << gameID << std::endl;
-            std::cout << std::endl;
+            // std::cout << "gameID Added: " << gameID << std::endl;
+            // std::cout << std::endl;
             totalSumofPossibleGames += gameID;
         }
 
         // reset vars
         gameID = 0;
-        red = 0;
-        blue = 0;
-        green = 0;
+        addGame = false;
         token = nullptr;
+
+        // Clean up Memory
+        delete[] tries;
+
+        std::cout << std::endl;
     }
+
+    // Clean up Memory
+    delete[] token;
 
     std::cout << "Sum of total valid games: " << totalSumofPossibleGames << std::endl;
 }
