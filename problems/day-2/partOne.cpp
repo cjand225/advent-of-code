@@ -13,7 +13,7 @@ int main()
     // Setup vars for each game.
     int totalSumofPossibleGames, gameID, quantity, red, green, blue = 0;
     std::string color;
-    bool addGame = false;
+    bool addGame = true;
 
     char *token;
     char *tries;
@@ -79,9 +79,9 @@ int main()
             std::cout << std::endl;
 
             // // Check if it exceeds anything, if it does, skip the game
-            if (red <= 12 && green <= 13 && blue <= 14)
+            if (red > 12 || green > 13 || blue > 14)
             {
-                addGame = true;
+                addGame = false;
             }
 
             // Reset colors
@@ -103,7 +103,7 @@ int main()
 
         // reset vars
         gameID = 0;
-        addGame = false;
+        addGame = true;
         token = nullptr;
 
         // Clean up Memory
