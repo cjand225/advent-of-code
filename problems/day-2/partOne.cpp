@@ -96,8 +96,8 @@ int main()
 
         if (addGame)
         {
-            // std::cout << "gameID Added: " << gameID << std::endl;
-            // std::cout << std::endl;
+            std::cout << "gameID Added: " << gameID << std::endl;
+            std::cout << std::endl;
             totalSumofPossibleGames += gameID;
         }
 
