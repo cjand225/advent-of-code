@@ -5,7 +5,6 @@ int main()
 {
     // open file
     std::fstream inputFile("input.txt", std::fstream::in);
-    std::string inputLine = "";
 
     // Coincidentally both lines and length of lines are 140.
     const int SIZE = 140;
