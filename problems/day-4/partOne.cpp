@@ -19,10 +19,7 @@ int main()
         size_t colonPos = inputView.find(":");
         size_t verticalBarPos = inputView.find("|");
         size_t stringSize = inputView.size();
-        size_t gameNumber;
         std::set<size_t> winningNumbers;
-
-        // gameNumber = std::stoi(inputView.substr(firstSpacePos, colonPos - firstSpacePos - 1).data());
 
         // find : pos of string, Find | part of string, split on white space
         std::istringstream winningStream(inputView.substr(colonPos + 1, verticalBarPos - colonPos - 1).data());
