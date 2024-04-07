@@ -4,7 +4,7 @@
 #include <string_view>
 #include <set>
 #include <map>
-#include <queue>
+#include <deque>
 
 int main()
 {
@@ -13,13 +13,13 @@ int main()
 
     // Maps to save winning and draw numebers to based on game # for key
     std::map<size_t, std::set<size_t>> wins;
-    std::map<size_t, std::set<size_t>> draws;
-    std::queue<size_t> gamesToProcess;
+    std::deque<size_t> gamesToProcess;
+    std::map<size_t, size_t> gamesWon;
 
     size_t gameID;
     size_t inputNumber;
 
-    size_t totalScratchCards = 0;
+    size_t totalWins = 0;
 
     while (std::getline(inputFile, inputString))
     {
@@ -32,7 +32,6 @@ int main()
         size_t stringSize = inputView.size();
 
         std::set<size_t> winningNumbers;
-        std::set<size_t> drawNumbers;
 
         gameID = std::stoi(inputView.substr(firstSpacePos, colonPos - firstSpacePos - 1).data());
 
@@ -48,24 +47,44 @@ int main()
         std::istringstream drawStream(inputView.substr(verticalBarPos + 1, stringSize - 1).data());
         while (drawStream >> inputNumber)
         {
-            drawNumbers.insert(inputNumber);
-
-            // Found initial won games
+            // if the draw is found in the winning set.
             if (winningNumbers.find(inputNumber) != winningNumbers.end())
             {
-                gamesToProcess.push(inputNumber);
+                gamesToProcess.push_front(inputNumber);
 
-                totalScratchCards += 1;
+                // Update amount of winning matches for gameID
+                if (gamesWon.find(gameID) != gamesWon.end())
+                {
+                    gamesWon[gameID] += 1;
+                }
+                else
+                {
+                    gamesWon.insert({gameID, 1});
+                }
             }
         }
-
-        wins.insert({gameID, drawNumbers});
-        draws.insert({gameID, drawNumbers});
     }
 
-    // swap to queue to continously check nums via maps
+    // Until all matches are complete
     while (!gamesToProcess.empty())
     {
-        //
+        size_t matches = 0;
+
+        // Grab the first game ID.
+        gameID = gamesToProcess.front();
+        gamesToProcess.pop_front();
+
+        // If id actually matches a real id, process it and the subsequent matches
+        if (gamesWon.find(gameID) != gamesWon.end())
+        {
+            matches = gamesWon[gameID];
+        }
+
+        for (size_t i = 0; i < matches; i++)
+        {
+            totalWins += gamesWon[gameID + i];
+        }
     }
+
+    std::cout << totalWins << std::endl;
 }
