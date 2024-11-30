@@ -36,3 +36,9 @@ g++ -o solution partOne.cpp --std=c++17
 ```
 
 Make sure you have a C++ compiler installed on your system. The solutions are written in standard C++, and no external libraries are required unless specified for each day.
+
+Originally compiled for Ubuntu Linux using the following packages:
+
+```
+build-essential cmake clang clang-format clang-tidy gdb
+```
