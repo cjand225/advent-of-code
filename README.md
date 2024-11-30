@@ -6,22 +6,23 @@ This repository contains my solutions to the [Advent of Code](https://adventofco
 
 ## Structure
 
-The solutions are organized by day within the problems directory. Each day's solutions are further divided into two parts, partOne.cpp and partTwo.cpp, along with the corresponding input file input.txt.
+The solutions are organized by day within the problems directory for each year. Each day's solutions are further divided into two parts, `partOne.cpp` and `partTwo.cpp`, along with the corresponding input file `input.txt`.
 
 The directory structure is as follows:
 
 ```yaml
 advent-of-code/
-├── problems/
-│   ├── day-1/
-│   │   ├── partOne.cpp
-│   │   ├── partTwo.cpp
-│   │   └── input.txt
-│   ├── day-2/
-│   │   ├── partOne.cpp
-│   │   ├── partTwo.cpp
-│   │   └── input.txt
-│   └── ...
+├── year/
+│   ├── problems/
+│   │   ├── day-1/
+│   │   │   ├── partOne.cpp
+│   │   │   ├── partTwo.cpp
+│   │   │   └── input.txt
+│   │   ├── day-2/
+│   │   │   ├── partOne.cpp
+│   │   │   ├── partTwo.cpp
+│   │   │   └── input.txt
+│   │   └── ...
 ```
 
 ## Running the Solutions
