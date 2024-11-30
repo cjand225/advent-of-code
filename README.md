@@ -1,4 +1,4 @@
-# Advent of Code 2023
+# Advent of Code
 
 ## Overview
 
@@ -11,7 +11,7 @@ The solutions are organized by day within the problems directory. Each day's sol
 The directory structure is as follows:
 
 ```yaml
-advent-of-code-2023/
+advent-of-code/
 ├── problems/
 │   ├── day-1/
 │   │   ├── partOne.cpp
