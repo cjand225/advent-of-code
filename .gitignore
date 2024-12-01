@@ -34,3 +34,6 @@
 # Project specific
 output.txt
 solution
+
+# CMake specific
+build
