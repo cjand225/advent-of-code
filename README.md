@@ -25,14 +25,22 @@ advent-of-code/
 │   │   └── ...
 ```
 
-## Running the Solutions
+## Bulding the Solutions
 
-To run a solution, navigate to the specific day's directory and compile the C++ code. For example:
+You can build a solution using `CMake`, by default it'll create all the existing solutions.
 
-```sh
-cd problems/day-1/
-g++ -o solution partOne.cpp --std=c++17
-./solution
+```
+mkdir build
+cd build
+cmake ..
+make
+```
+
+If you want to build a particular solution or year, you can use the following flags:
+
+```
+cmake -DBUILD_DAYS="1,2" ..
+cmake -DBUILD_YEARS="2023, 2024" ..
 ```
 
 Make sure you have a C++ compiler installed on your system. The solutions are written in standard C++, and no external libraries are required unless specified for each day.
