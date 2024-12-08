@@ -1,9 +1,8 @@
 #include <fstream>
-#include <sstream>
 #include <iostream>
+#include <sstream>
 
-int main()
-{
+int main() {
     std::fstream inputFile("input.txt", std::fstream::in);
     std::string inputString = "";
     std::string temp;
@@ -21,8 +20,7 @@ int main()
 
     iss >> temp;
 
-    for (size_t i; i < 4; i++)
-    {
+    for (size_t i; i < 4; i++) {
         iss >> number;
         numString += std::to_string(number);
     }
@@ -40,8 +38,7 @@ int main()
 
     iss >> temp;
 
-    for (size_t i; i < 4; i++)
-    {
+    for (size_t i; i < 4; i++) {
         iss >> number;
         numString += std::to_string(number);
     }
@@ -54,16 +51,14 @@ int main()
     size_t currentDistance = 0;
     size_t numberOfWays = 0;
 
-    for (size_t j = 0; j < time; j++)
-    {
+    for (size_t j = 0; j < time; j++) {
         // Calcuate the distance depending on hold time and the time left.
         timeLeft = time - j;
         holdTime = j;
         currentDistance = timeLeft * holdTime;
 
         // check if distance is greater, if it is - update the numberOfWays
-        if (currentDistance > distance)
-        {
+        if (currentDistance > distance) {
             numberOfWays += 1;
         }
     }

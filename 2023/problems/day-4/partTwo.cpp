@@ -1,13 +1,12 @@
+#include <deque>
 #include <fstream>
 #include <iostream>
+#include <map>
+#include <set>
 #include <sstream>
 #include <string_view>
-#include <set>
-#include <map>
-#include <deque>
 
-int main()
-{
+int main() {
     std::fstream inputFile("input.txt", std::fstream::in);
     std::string inputString = "";
 
@@ -21,8 +20,7 @@ int main()
 
     size_t totalWins = 0;
 
-    while (std::getline(inputFile, inputString))
-    {
+    while (std::getline(inputFile, inputString)) {
         std::string_view inputView(inputString);
 
         // Find start point of string, find : pos of string - 1, split on white space
@@ -38,27 +36,21 @@ int main()
         // find : pos of string, Find | part of string, split on white space
         std::istringstream winningStream(inputView.substr(colonPos + 1, verticalBarPos - colonPos - 1).data());
 
-        while (winningStream >> inputNumber)
-        {
+        while (winningStream >> inputNumber) {
             winningNumbers.insert(inputNumber);
         }
 
         // find | part of string, find end of string, split on white space
         std::istringstream drawStream(inputView.substr(verticalBarPos + 1, stringSize - 1).data());
-        while (drawStream >> inputNumber)
-        {
+        while (drawStream >> inputNumber) {
             // if the draw is found in the winning set.
-            if (winningNumbers.find(inputNumber) != winningNumbers.end())
-            {
+            if (winningNumbers.find(inputNumber) != winningNumbers.end()) {
                 gamesToProcess.push_front(inputNumber);
 
                 // Update amount of winning matches for gameID
-                if (gamesWon.find(gameID) != gamesWon.end())
-                {
+                if (gamesWon.find(gameID) != gamesWon.end()) {
                     gamesWon[gameID] += 1;
-                }
-                else
-                {
+                } else {
                     gamesWon.insert({gameID, 1});
                 }
             }
@@ -66,8 +58,7 @@ int main()
     }
 
     // Until all matches are complete
-    while (!gamesToProcess.empty())
-    {
+    while (!gamesToProcess.empty()) {
         size_t matches = 0;
 
         // Grab the first game ID.
@@ -75,13 +66,11 @@ int main()
         gamesToProcess.pop_front();
 
         // If id actually matches a real id, process it and the subsequent matches
-        if (gamesWon.find(gameID) != gamesWon.end())
-        {
+        if (gamesWon.find(gameID) != gamesWon.end()) {
             matches = gamesWon[gameID];
         }
 
-        for (size_t i = 0; i < matches; i++)
-        {
+        for (size_t i = 0; i < matches; i++) {
             totalWins += gamesWon[gameID + i];
         }
     }

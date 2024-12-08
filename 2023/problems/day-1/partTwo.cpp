@@ -3,8 +3,7 @@
 #include <map>
 #include <string>
 
-int main()
-{
+int main() {
     // Create a map of incomplete words.
     std::map<std::string, std::string> incompleteNumberMap = {
         {"eightwo", "eighttwo"}, {"twone", "twoone"}, {"oneight", "oneeight"}};
@@ -21,36 +20,31 @@ int main()
     std::string inputLine = "";
 
     // read file
-    while (std::getline(inputFile, inputLine))
-    {
+    while (std::getline(inputFile, inputLine)) {
         // input before replacement
         std::cout << inputLine << std::endl;
 
         // Replace the broken words
-        for (const auto &pair : incompleteNumberMap)
-        {
+        for (const auto &pair : incompleteNumberMap) {
             std::string word = pair.first;
             std::string number = pair.second;
 
             // Have to while loop it as it could have more than 1 of the same occurence.
             size_t pos = inputLine.find(word);
-            while (pos != std::string::npos)
-            {
+            while (pos != std::string::npos) {
                 inputLine.replace(pos, word.length(), number);
                 pos = inputLine.find(word, pos + number.length());
             }
         }
 
         // word replacement with mapping
-        for (const auto &pair : numberMap)
-        {
+        for (const auto &pair : numberMap) {
             std::string word = pair.first;
             std::string number = std::to_string(pair.second);
 
             // Have to while loop it as it could have more than 1 of the same occurence.
             size_t pos = inputLine.find(word);
-            while (pos != std::string::npos)
-            {
+            while (pos != std::string::npos) {
                 inputLine.replace(pos, word.length(), number);
                 pos = inputLine.find(word, pos + number.length());
             }
@@ -60,23 +54,17 @@ int main()
         std::cout << inputLine << std::endl;
 
         // Iterate through each line
-        for (char c : inputLine)
-        {
-
+        for (char c : inputLine) {
             // Skip characters that aren't digits or new lines
-            if (!isdigit(c))
-            {
+            if (!isdigit(c)) {
                 continue;
             }
 
             // Case where characters haven't been set or new line is encounted
-            if (first == '\0')
-            {
+            if (first == '\0') {
                 first = c;
                 last = first;
-            }
-            else
-            {
+            } else {
                 last = c;
             }
         }

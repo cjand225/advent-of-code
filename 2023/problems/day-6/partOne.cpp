@@ -1,9 +1,8 @@
 #include <fstream>
-#include <sstream>
 #include <iostream>
+#include <sstream>
 
-int main()
-{
+int main() {
     std::fstream inputFile("input.txt", std::fstream::in);
     std::string inputString = "";
     std::string temp;
@@ -33,20 +32,17 @@ int main()
     size_t totalRaceNumbers = 1;
 
     // Iterate over each race
-    for (size_t i = 0; i < length; i++)
-    {
+    for (size_t i = 0; i < length; i++) {
         size_t numberOfWays = 0;
 
-        for (size_t j = 0; j < time[i]; j++)
-        {
+        for (size_t j = 0; j < time[i]; j++) {
             // Calcuate the distance depending on hold time and the time left.
             timeLeft = time[i] - j;
             holdTime = j;
             currentDistance = timeLeft * holdTime;
 
             // check if distance is greater, if it is - update the numberOfWays
-            if (currentDistance > distance[i])
-            {
+            if (currentDistance > distance[i]) {
                 numberOfWays += 1;
             }
         }
